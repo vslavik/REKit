@@ -1093,6 +1093,9 @@ void _RERemoveCurrentBlock(id receiver, SEL selector, BOOL isClassMethod, id key
 
 - (void)respondsToSelector:(SEL)selector withKey:(id)key usingBlock:(id)block __attribute__((deprecated))
 {
+    // FIXME: this is wrong, but __weak has no effect in non-ARC code like this file anyway
+    #undef __weak
+    #define __weak
 	RESetBlock(self, selector, NO, key, block);
 }
 
